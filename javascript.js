@@ -49,6 +49,11 @@ if (player.x == player.appleX && player.y == player.appleY) {
 // Main Loop
 var main;
 function loopStart() {
+	player.dir = "up";
+	player.x = 200;
+	player.y = 200;
+	player.pastX = [200];
+	player.pastY = [200];
 	if(main) {
 clearInterval(main);
 }
