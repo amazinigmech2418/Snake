@@ -30,7 +30,7 @@ var player = {
 // Make apple on load
 apple();
 }
-
+setup();
 function renderApple() {
 	for(var xyz=0; xyz<settings.apples; xyz++) {
 	c.fillStyle = "red";
