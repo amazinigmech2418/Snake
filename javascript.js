@@ -24,7 +24,7 @@ var player = {
 	pastX:[200],
 	pastY:[200],
 	length:10,
-	lives: settings.lives;
+	lives: settings.lives
 }
 
 // Make apple on load
@@ -126,3 +126,4 @@ function gameOver() {
 c.fillText("Game Over",50,200);
 c.fillText("Score: "+((player.length-10)/6),50,270);
 }
+loopStart();
