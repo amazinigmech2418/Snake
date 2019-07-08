@@ -92,9 +92,11 @@ main = setInterval(function() {
 		player.pastY.shift();
 	}
 	// Check if apple is eaten
-	if(Math.sqrt(((player.x-player.appleX)*(player.x-player.appleX))+((player.y-player.appleY)*(player.y-player.appleY)))<6) {
+	for(var z=0; z<settings.apples; z++) {
+	if(Math.sqrt(((player.x-player.appleX[z])*(player.x-player.appleX[z]))+((player.y-player.appleY[z])*(player.y-player.appleY[z])))<6) {
 		player.length+=6;
-		apple();
+		appleReset();
+	}
 	}
 	renderApple();
 },20);}
@@ -122,6 +124,15 @@ function apple() {
 	player.appleY.push(Math.floor(Math.random() * 394) + 6);
 	c.fillRect(player.appleX[xyz],player.appleY[xyz],6,6);
 	}
+}
+
+function appleReset(xyz) {
+
+	c.fillStyle = "red";
+	player.appleX[xyz] = (Math.floor(Math.random() * 394) + 6);
+	player.appleY[xyz] = (Math.floor(Math.random() * 394) + 6);
+	c.fillRect(player.appleX[xyz],player.appleY[xyz],6,6);
+
 }
 function gameOver() {
 c.fillText("Game Over",50,200);
