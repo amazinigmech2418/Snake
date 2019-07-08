@@ -13,8 +13,9 @@ var settings = {
 	speed: SPEED.SLOW
 };
 // Game things
+var player;
 function setup() {
-var player = {
+player = {
 	dir:"up",
 	x:200,
 	y:200,
