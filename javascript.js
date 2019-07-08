@@ -1,25 +1,41 @@
 var canvas = document.getElementById('canvas');
 var c = canvas.getContext('2d');
+// Add Settings to Game
+var SPEED = {
+	SLOW: 1,
+	MEDIUM: 3,
+	FAST: 5
+};
 
+var settings = {
+	lives: 3,
+	apples: 5,
+	speed: SPEED.SLOW
+};
 // Game things
+function setup() {
 var player = {
 	dir:"up",
 	x:200,
 	y:200,
-	appleX:0,
-	appleY:0,
+	appleX:[0],
+	appleY:[0],
 	points:0,
 	pastX:[200],
 	pastY:[200],
-	length:10
+	length:10,
+	lives: settings.lives;
 }
 
 // Make apple on load
 apple();
+}
 
 function renderApple() {
+	for(var xyz=0; xyz<settings.apples, xyz++) {
 	c.fillStyle = "red";
-	c.fillRect(player.appleX,player.appleY,6,6);
+	c.fillRect(player.appleX[xyz],player.appleY[xyz],6,6);
+	}
 }
 
 // Detect if snake is touching apple
@@ -30,24 +46,32 @@ if (player.x == player.appleX && player.y == player.appleY) {
 }
 
 // Main Loop
-var main = setInterval(function() {
+var main;
+function loopStart() {
+	if(main) {
+clearInterval(main);
+}
+main = setInterval(function() {
 	c.font = "50px Arial";
 	if (player.dir == "up") {
-		player.y -= 1;
+		player.y -= settings.speed;
 	} else if (player.dir == "down") {
-		player.y += 1;
+		player.y += settings.speed;
 	} else if (player.dir == "right") {
-		player.x += 1;
+		player.x += settings.speed;
 	} else if (player.dir == "left") {
-		player.x -= 1;
+		player.x -= settings.speed;
 	}
 	// Check if Game Over
 	if((player.pastX.indexOf(player.x)==player.pastY.indexOf(player.y) &&player.pastX.indexOf(player.x)!=-1)||player.x<0||player.y<0||player.x>500||player.y>500) {
-		c.fillText("Game Over",50,200);
+		if(player.lives>0) {
+			player.lives--;
+		loopStart();
+		} else {c.fillText("Game Over",50,200);
 		c.fillText("Score: "+((player.length-10)/6),50,270);
 		dir="";
 		setInterval(gameOver,20);
-		clearInterval(main);
+		clearInterval(main);}
 	}
 	// Clear Screen
 	c.clearRect(0,0,1000,1000);
@@ -72,7 +96,7 @@ var main = setInterval(function() {
 		apple();
 	}
 	renderApple();
-},20);
+},20);}
 
 // Detect Keys
 document.body.onkeydown = function(event) {
@@ -89,10 +113,14 @@ document.body.onkeydown = function(event) {
 
 // Function to make an apple at a random position
 function apple() {
+	player.appleX = [];
+	player.appleY= [];
+	for(var xyz=0; xyz<settings.apples; xyz++) {
 	c.fillStyle = "red";
-	player.appleX = Math.floor(Math.random() * 394) + 6;
-	player.appleY = Math.floor(Math.random() * 394) + 6;
-	c.fillRect(player.appleX,player.appleY,6,6);
+	player.appleX.push(Math.floor(Math.random() * 394) + 6);
+	player.appleY.push(Math.floor(Math.random() * 394) + 6);
+	c.fillRect(player.appleX[xyz],player.appleY[xyz],6,6);
+	}
 }
 function gameOver() {
 c.fillText("Game Over",50,200);
