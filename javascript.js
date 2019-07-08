@@ -32,7 +32,7 @@ apple();
 }
 
 function renderApple() {
-	for(var xyz=0; xyz<settings.apples, xyz++) {
+	for(var xyz=0; xyz<settings.apples; xyz++) {
 	c.fillStyle = "red";
 	c.fillRect(player.appleX[xyz],player.appleY[xyz],6,6);
 	}
