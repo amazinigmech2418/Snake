@@ -95,7 +95,7 @@ main = setInterval(function() {
 	for(var z=0; z<settings.apples; z++) {
 	if(Math.sqrt(((player.x-player.appleX[z])*(player.x-player.appleX[z]))+((player.y-player.appleY[z])*(player.y-player.appleY[z])))<6) {
 		player.length+=6;
-		appleReset();
+		appleReset(z);
 	}
 	}
 	renderApple();
